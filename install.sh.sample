@@ -14,9 +14,8 @@
 # • Only run this script as the mastodon user.
 # • Use --skip-confirm to bypass all confirmation steps.
 # • Use --main to install from the latest commits on the main branch.
+# • Use --glitch to install on a Glitch-soc instance (copies glitch skins and skips themes.yml).
 #
-#
-# /!\ This script is not suitable for Glitch-soc instances.
 
 # --- CONFIGURE PATHS BELOW ---
 # Use absolute paths
@@ -47,10 +46,12 @@ confirm_path() {
 
 SKIP_CONFIRM=false
 MAIN_BRANCH=false
+GLITCH=false
 while [[ "$#" -gt 0 ]]; do
     case "$1" in
         --skip-confirm) SKIP_CONFIRM=true ;;
         --main) MAIN_BRANCH=true ;;
+        --glitch) GLITCH=true ;;
         *) echo "Unknown parameter passed: $1" >&2; exit 1 ;;
     esac
     shift
@@ -77,29 +78,40 @@ fi
 # --- STEP 2: Copy styles
 cp -r "./mastodon/app/javascript/styles/"* "$MASTODON/app/javascript/styles"
 
-# Add Tangerine UI to themes.yml if not already present
-THEME_FILE="$MASTODON/config/themes.yml"
-THEME_LINES=(
-    "tangerineui: styles/tangerineui.scss"
-    "tangerineui-purple: styles/tangerineui-purple.scss"
-    "tangerineui-cherry: styles/tangerineui-cherry.scss"
-    "tangerineui-lagoon: styles/tangerineui-lagoon.scss"
-    "tangerineui-granite: styles/tangerineui-granite.scss"
-)
+if [ "$GLITCH" = true ]; then
+    # --- Glitch-soc: copy skins for both flavours
+    echo "Copying vanilla skins..."
+    cp -r "./mastodon/app/javascript/skins/vanilla/"* "$MASTODON/app/javascript/skins/vanilla/" 2>/dev/null || true
+    echo "Copying glitch skins..."
+    mkdir -p "$MASTODON/app/javascript/skins/glitch"
+    cp -r "./mastodon/app/javascript/skins/glitch/"* "$MASTODON/app/javascript/skins/glitch/"
 
-# --- STEP 3: Update themes.yml
-if [ -f "$THEME_FILE" ]; then
-    for line in "${THEME_LINES[@]}"; do
-        if ! grep -Fxq "$line" "$THEME_FILE"; then
-            echo "$line" >> "$THEME_FILE"
-            echo "Added to themes.yml: $line"
-        else
-            echo "Already present in themes.yml: $line"
-        fi
-    done
+    # Glitch-soc uses skins instead of themes.yml, so we skip themes.yml modification
 else
-    echo "themes.yml not found: $THEME_FILE" >&2
-    exit 1
+    # Add Tangerine UI to themes.yml if not already present
+    THEME_FILE="$MASTODON/config/themes.yml"
+    THEME_LINES=(
+        "tangerineui: styles/tangerineui.scss"
+        "tangerineui-purple: styles/tangerineui-purple.scss"
+        "tangerineui-cherry: styles/tangerineui-cherry.scss"
+        "tangerineui-lagoon: styles/tangerineui-lagoon.scss"
+        "tangerineui-granite: styles/tangerineui-granite.scss"
+    )
+
+    # --- STEP 3: Update themes.yml
+    if [ -f "$THEME_FILE" ]; then
+        for line in "${THEME_LINES[@]}"; do
+            if ! grep -Fxq "$line" "$THEME_FILE"; then
+                echo "$line" >> "$THEME_FILE"
+                echo "Added to themes.yml: $line"
+            else
+                echo "Already present in themes.yml: $line"
+            fi
+        done
+    else
+        echo "themes.yml not found: $THEME_FILE" >&2
+        exit 1
+    fi
 fi
 
 # --- STEP 4: Add Tangerine UI locale file

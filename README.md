@@ -228,6 +228,11 @@ Alternatively:
 ./install.sh --main
 ```
 
+* Run with `--glitch` if you are installing on a **Glitch-soc** instance (copies glitch skins and skips `themes.yml`):
+```sh
+./install.sh --glitch
+```
+
 4. **Restart** your Mastodon instance for the changes to take effect.
 
 Your users should now be able to choose '*Tangerine Neue*', '*Tangerine Neue (Purple)*', '*Tangerine Neue (Cherry)*', '*Tangerine Neue (Lagoon)*', or '*Tangerine Neue (Granite)*' as their site theme:
@@ -302,7 +307,7 @@ As an admin, you should also now be able to set Tangerine Neue as the default th
 <details>
 <summary>⚙️ Install on a <strong>Glitch-soc instance</strong></summary>
 
-Tangerine Neue does not yet support Glitch-soc's features and layout, but it can still be installed as a vanilla skin on your Glitch-soc instance:
+Tangerine Neue supports Glitch-soc's features and layout, and can be installed as a skin on your Glitch-soc instance for both the Vanilla and Glitch Edition flavours:
 
 1. **Clone** the Tangerine Neue repository, and fetch the [latest stable release](https://github.com/mattbirchler/Tangerine-Neue-for-Mastodon/releases/latest) of Tangerine Neue:
 ```sh
@@ -336,6 +341,15 @@ Your users should now be able to select Tangerine Neue as a theme in their setti
 
 ![Glitch-soc settings. Flavours → Vanilla Mastodon → Skin](https://github.com/nileane/TangerineUI-for-Mastodon/assets/914451/abd931ab-685a-4d55-aa24-cb6356a19a7c)
 
+> **🧩 Tangerine Neue now supports the Glitch Edition flavour.**  
+> To also offer it under the Glitch Edition flavour, copy the glitch skins:
+> 
+> ```sh
+> cp -r ./mastodon/app/javascript/skins/glitch/* $LIVE/app/javascript/skins/glitch
+> ```
+> 
+> Your users can then select Tangerine Neue under *Flavours* → *Glitch Edition* → Skin.
+
 </details>
 
 ### 4.b Install Tangerine Neue as the only theme on your instance:
@@ -346,6 +360,7 @@ Your users should now be able to select Tangerine Neue as a theme in their setti
    * 🍒 For the Cherry variant, copy the contents of [`TangerineUI-cherry.css`](https://github.com/mattbirchler/Tangerine-Neue-for-Mastodon/blob/main/TangerineUI-cherry.css) instead.
    * 🐠 For the Lagoon variant, copy the contents of [`TangerineUI-lagoon.css`](https://github.com/mattbirchler/Tangerine-Neue-for-Mastodon/blob/main/TangerineUI-lagoon.css) instead.
    * 🪨 For the Granite variant, copy the contents of [`TangerineUI-granite.css`](https://github.com/mattbirchler/Tangerine-Neue-for-Mastodon/blob/main/TangerineUI-granite.css) instead.
+   * 🧩 On a **Glitch-soc** instance, use the `-glitch.css` variant instead (e.g. 🐠 [`TangerineUI-lagoon-glitch.css`]) for proper Glitch Edition flavour support.
 
 > [!WARNING]
 > **Using the '*Custom CSS*' field to apply Tangerine Neue will prevent all users on your instance from being able to choose another theme in their Appearance settings** ([see *Accessibility*](#6-accessibility)).  
@@ -365,6 +380,14 @@ Even if you are not an admin on your instance, you can still use Tangerine Neue 
 
 > [!IMPORTANT]
 > If you are a user on a Glitch-soc instance, you must switch to the Vanilla Mastodon flavour for Tangerine Neue to work properly: in your instance settings, navigate to *Flavours* → *Vanilla Mastodon* → select the '*Default*' skin.
+
+> If you prefer to keep the Glitch Edition flavour, use the `-glitch.css` variant of the theme instead:
+>
+> 🍊 [`TangerineUI-glitch.css`](https://github.com/mattbirchler/Tangerine-Neue-for-Mastodon/blob/main/TangerineUI-glitch.css)
+> 🪻 [`TangerineUI-purple-glitch.css`](https://github.com/mattbirchler/Tangerine-Neue-for-Mastodon/blob/main/TangerineUI-purple-glitch.css)
+> 🍒 [`TangerineUI-cherry-glitch.css`](https://github.com/mattbirchler/Tangerine-Neue-for-Mastodon/blob/main/TangerineUI-cherry-glitch.css)
+> 🐠 [`TangerineUI-lagoon-glitch.css`](https://github.com/mattbirchler/Tangerine-Neue-for-Mastodon/blob/main/TangerineUI-lagoon-glitch.css)
+> 🪨 [`TangerineUI-granite-glitch.css`](https://github.com/mattbirchler/Tangerine-Neue-for-Mastodon/blob/main/TangerineUI-granite-glitch.css)
 
 ### Using a UserScript browser extension
 If you prefer to use a UserScript browser extension, [@Write](https://github.com/Write) maintains a ready-to-use UserScript to load Tangerine Neue on any Mastodon instance.

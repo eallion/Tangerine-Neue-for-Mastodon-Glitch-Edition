@@ -8811,3 +8811,123 @@ a:is(.active,
     background-image: var(--icon-olympics);
     transform: scale(1.85);
 }
+
+._comp_badge__content {
+  line-height: 2;
+}
+
+/* ===== Glitch Edition fixes ===== */
+
+html[data-user-flavour="glitch"] .app-body {
+
+  /* App settings icon (icon-cogs) */
+  .column-link .icon-cogs {
+    color: var(--color-text-brand);
+  }
+  .column-link.active .icon-cogs {
+    color: var(--color-accent);
+  }
+
+  /* Both submit buttons */
+  .compose-form__submit {
+    max-width: none;
+    display: flex;
+    gap: 8px;
+  }
+  .compose-form__submit button.secondary-post-button {
+    flex: 0 0 40px;
+    width: 40px;
+    height: 40px;
+    padding: 0;
+    background-color: var(--color-accent-bg);
+    color: var(--color-accent);
+    border: 1px solid var(--color-accent);
+    border-radius: 8px;
+  }
+  .compose-form__submit button.secondary-post-button:hover {
+    background-color: var(--color-accent);
+    color: var(--color-text-primary);
+  }
+  /* Show secondary-post-button icon path */
+  .compose-form__submit button.secondary-post-button .icon path {
+    display: block;
+    fill: currentColor;
+  }
+  .compose-form__submit button.secondary-post-button .icon {
+    background-image: none;
+  }
+  /* Post button: full width with text */
+  .compose-form__submit .button {
+    flex: 1 1 auto;
+    max-width: none;
+    font-weight: 700;
+    border: 1px solid var(--color-accent);
+    color: var(--color-text-primary);
+    background-image: none;
+  }
+  .compose-form:has(.autosuggest-textarea__textarea:placeholder-shown) .compose-form__submit .button {
+    background-image: none;
+  }
+  .compose-form:not(:has(.autosuggest-textarea__textarea:placeholder-shown)) .compose-form__submit .button {
+    color: var(--color-accent-fg);
+  }
+  .compose-form:not(:has(.autosuggest-textarea__textarea:placeholder-shown)) .compose-form__submit button.secondary-post-button {
+    background-color: var(--color-accent);
+    color: var(--color-accent-fg);
+  }
+  .compose-form:not(:has(.autosuggest-textarea__textarea:placeholder-shown)) .compose-form__submit button.secondary-post-button .icon path {
+    fill: currentColor;
+  }
+
+  /* Character counter */
+  .character-counter {
+    opacity: 1;
+    margin-right: 0;
+    max-width: 60px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    text-align: center;
+  }
+  .compose-form__buttons {
+    overflow: hidden;
+    flex-shrink: 1;
+  }
+
+  /* Themed textarea border */
+  .autosuggest-textarea__textarea {
+    margin-left: 8px;
+    margin-right: 8px;
+    width: calc(100% - 16px);
+    box-sizing: border-box;
+    border: 1px solid var(--color-accent-bg);
+    border-radius: 8px;
+  }
+  .compose-form__highlightable:focus-within .autosuggest-textarea__textarea {
+    border-color: var(--color-accent);
+  }
+
+  /* Glitch compose toolbar icons use accent color like other toolbar icons */
+  .compose-form__buttons .icon-button.inverted {
+    color: var(--color-accent);
+  }
+  .compose-form__buttons .icon-button.inverted:hover,
+  .compose-form__buttons .icon-button.inverted:active,
+  .compose-form__buttons .icon-button.inverted.active {
+    color: var(--color-accent);
+  }
+  .compose-form__buttons .icon-button {
+    padding: 5px;
+  }
+
+  /* Wide view: expand column width from 580px to 768px */
+  .ui.wide .columns-area__panels__main {
+    max-width: 768px;
+  }
+
+  /* Full-width columns: use all available space */
+  .ui.fullwidth-columns .columns-area__panels__main {
+    max-width: none;
+  }
+
+}
