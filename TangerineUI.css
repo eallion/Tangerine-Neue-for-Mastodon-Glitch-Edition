@@ -8816,3 +8816,48 @@ a:is(.active,
     background-image: var(--icon-olympics);
     transform: scale(1.85);
 }
+
+/* --- Pinned posts (4.6 account-timeline) ---------------------------------
+   The pinned header is a .status__info that also carries
+   ._feat_account_timeline__pinnedStatusHeader and becomes a 2-row grid: the
+   "Pinned" badge on top, the date below, the name spanning both rows (the clean
+   native layout). Tangerine clamps every .status__info to height:22px, which
+   crushes that grid so the date overflows into the post content; it also floats
+   .status__relative-time to the top-right, where it then bleeds over the badge.
+   For the pinned header only: drop the height clamp and let the date sit in its
+   grid row instead of floating. */
+.app-body ._feat_account_timeline__pinnedStatusHeader {
+    height: auto;
+}
+.app-body ._feat_account_timeline__pinnedStatusHeader .status__display-name {
+    max-height: none;
+}
+.app-body ._feat_account_timeline__pinnedStatusHeader > .status__relative-time {
+    position: static;
+    inset-inline-end: auto;
+    height: auto;
+}
+.app-body ._feat_account_timeline__pinnedStatusHeader > .status__relative-time::before,
+.app-body ._feat_account_timeline__pinnedStatusHeader > .status__relative-time::after {
+    display: none;
+}
+/* Pinned badge: match the other post-header labels (boosted / show thread) —
+   fully-rounded pill, page background, muted bold text, accent icon; reset the
+   line-height it inherits from .status__info (which clipped the label). */
+.app-body ._feat_account_timeline__pinnedBadge {
+    line-height: normal;
+    background-color: var(--color-bg);
+    border-radius: 50px;
+    color: var(--color-fg-muted);
+    font-weight: 600;
+    padding: 4px 10px;
+}
+.app-body ._feat_account_timeline__pinnedBadge ._comp_badge__content {
+    line-height: normal;
+    overflow: visible;
+}
+.app-body ._feat_account_timeline__pinnedBadge .icon-pinned {
+    fill: var(--color-accent);
+    color: var(--color-accent);
+}
+
