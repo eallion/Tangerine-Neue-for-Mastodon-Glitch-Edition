@@ -2589,20 +2589,31 @@ body.app-body  {
 }
 .app-body .status__content__translate-button,
 .app-body .translate-button .link-button {
-    width: 32px;
-    height: 32px;
-    bottom: 13px;
-    right: 52px;
-    padding: 0px;
-    position: absolute;
-    font-size: 0;
-    background-size: 20px;
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    margin-top: 6px;
+    padding: 0 10px 0 28px;
+    height: 26px;
+    border-radius: 50px;
+    background-color: var(--color-bg);
+    background-size: 16px;
     background-repeat: no-repeat;
-    background-position: center;
+    background-position: 6px center;
     background-image: var(--icon-translate-accent);
-    border-radius: 8px;
-    transition: all .3s;
-    background-color: transparent;
+    border: none;
+    color: var(--color-content-fg);
+    font-size: 13px;
+    text-decoration: none;
+    transition: background-color .3s;
+}
+.app-body .status__content__translate-button:hover,
+.app-body .translate-button .link-button:hover {
+    background-color: var(--color-accent-bg);
+}
+.app-body .status__content__translate-button > span,
+.app-body .translate-button .link-button > span {
+    display: inline;
 }
 .app-body .compose-form .status__content__translate-button,
 .app-body .compose-form .translate-button .link-button {
@@ -2611,11 +2622,8 @@ body.app-body  {
 .app-body .detailed-status .status__content__translate-button,
 .app-body .detailed-status .translate-button .link-button {
     background-image: var(--icon-translate-accent);
-    background-size: 25px;
-    width: 40px;
-    height: 40px;
-    right: 60px;
-    bottom: 20px;
+    background-size: 16px;
+    padding-left: 28px;
 }
 .app-body .status--is-quote :is(.status__content__translate-button, .translate-button .link-button) {
     display: none;
@@ -2623,37 +2631,14 @@ body.app-body  {
 @media screen and (max-width:770px) {
     .app-body .status__content__translate-button,
     .app-body .translate-button .link-button {
-        bottom: 10px;
-    }
-    .app-body .notification-ungrouped .status__content__translate-button,
-    .app-body .notification-ungrouped .translate-button .link-button {
-        bottom: 13px;
-        right: 55px;
     }
 }
 .app-body .scrollable > div:is(:last-child, :only-child) .detailed-status__wrapper:last-child
     :is(
         .translate-button .link-button,
         .status__content__translate-button
-    ) {
-        bottom: 12px;
-}
-.app-body .status__content__translate-button:hover,
-.app-body .translate-button .link-button:hover {
-    background-color: var(--color-accent-bg);
-}
-.app-body .translate-button .link-button,
-.app-body .detailed-status .translate-button .link-button,
-.app-body .translate-button .link-button:hover,
-.app-body .detailed-status .translate-button .link-button:hover {
-    background-image: var(--icon-translate-active);
-    background-color: var(--color-accent);
-    transform: scale(.8);
-}
-.app-body .status__content__translate-button > span,
-.app-body .translate-button .link-button > span,
-.app-body .notification .status__content__translate-button {
-    display: none;
+    )
+    {
 }
 .app-body .account__display-name strong,
 .app-body .status__display-name strong,
@@ -4526,6 +4511,11 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
 .app-body .column-header__title .logo {
     opacity: 0;
     visibility: hidden;
+    /* 4.6 wraps the narrow-layout symbol logo in <Icon class="column-header__icon">,
+       giving it a fixed ~20px box so the title text ends up tight against it. Keep
+       a wider box so the text clears the logo (drawn via ::before) with a ~10px
+       gap, like pre-4.6. */
+    width: 43px;
 }
 .app-body .column-header__title:has(> .logo)::before {
     content: " ";
@@ -4538,6 +4528,12 @@ div[tabindex="-1"] + div[tabindex="-1"] > .status__wrapper > .status-reply.statu
     background-image: var(--logo);
     background-repeat: no-repeat;
     background-size: cover;
+}
+/* Wide layout uses the native home icon (HomeIcon, no .logo) with a very tight
+   native gap — widen it to match the narrow layout / pre-4.6 spacing. :not(.logo)
+   keeps it off the narrow symbol logo handled above. */
+.app-body .column-header__icon.icon-home:not(.logo) {
+    margin-inline-end: 10px;
 }
 .app-body .navigation-panel__logo {
     margin-bottom: 5px;
@@ -8896,8 +8892,7 @@ html[data-user-flavour="glitch"] .app-body {
 
   /* Themed textarea border */
   .autosuggest-textarea__textarea {
-    margin-left: 8px;
-    margin-right: 8px;
+    margin: 8px 8px 0 8px;
     width: calc(100% - 16px);
     box-sizing: border-box;
     border: 1px solid var(--color-accent-bg);
