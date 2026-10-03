@@ -52,7 +52,7 @@ Glitch 变体文件与基础文件有以下结构性差异，同步时需注意�
 ## Git 远程仓库
 
 - `origin` — 个人 fork（eallion/Tangerine-Neue-for-Mastodon-Glitch-Edition）
-- `upstream` — 上游仓库（panchenko/Tangerine-Neue）
+- `upstream` — 上游仓库（mattbirchler/Tangerine-Neue-for-Mastodon）
 
 ## 禁止事项
 
